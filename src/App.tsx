@@ -1,26 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect, useState} from 'react';
 import './App.css';
+import Counter from "./Counter/Counter";
+
+export type CounterValuesObjType = {
+    startValue: number
+    maxValue: number
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    let counterValuesObj = {startValue: 0, maxValue: 0};
+
+    let [counterValues, setCounterValues] = useState<CounterValuesObjType>(counterValuesObj);
+    let [counter, setCounter] = useState(counterValues.startValue);
+
+    let [error, setError] = useState<boolean>(false);
+    let [editMode, setEditMode] = useState<boolean>(false);
+
+    useEffect(() => {
+        let saved = localStorage.getItem('set value');
+        if (saved) {
+            setCounterValues(JSON.parse(saved))
+        }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('set value', JSON.stringify(counterValues));
+    }, [counterValues]);
+
+    const settingsChanged = (newValues: CounterValuesObjType) => {
+        setCounterValues(newValues);
+        setCounter(newValues.startValue);
+        setEditMode(false)
+    }
+
+    return (
+        <div className="App">
+            <Counter
+                error={error}
+                counterValues={counterValues}
+                counter={counter}
+                setCounter={setCounter}
+                editMode={editMode}
+                settingsChanged={settingsChanged}
+                setEditMode={setEditMode}
+                setError={setError}
+            />
+        </div>
+    );
 }
 
 export default App;

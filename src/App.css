@@ -1,38 +1,100 @@
 .App {
-  text-align: center;
+    background-color: #282c34;
+    height: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.counter-wrapper {
+    width: 400px;
+    height: 300px;
+    border: 3px solid dodgerblue;
+    border-radius: 10px;
+    background-color: #282c34;
+    padding: 30px;
+    margin: 40px;
+    box-shadow: 8px 14px 20px black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.display {
+    background-color: dodgerblue;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 30px;
+    width: 380px;
+    height: 140px;
+    padding: 10px;
+    color: #282c34;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.setText {
+    font-size: 30px;
+    font-weight: bold;
+    vertical-align: super;
+    color: #282c34;
 }
 
-.App-link {
-  color: #61dafb;
+.errorText {
+    font-size: 30px;
+    font-weight: bold;
+    vertical-align: super;
+    color: darkred;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.button {
+    background-color: dodgerblue;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px;
+    color: #282c34;
+    width: 180px;
+    height: 60px;
+    border-radius: 10px;
+    box-shadow: 3px 7px 10px black;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    width: 370px;
+    border: 3px solid #0F4A82;
+    border-radius: 10px;
+    background-color: #282c34;
+    padding: 12px;
+    margin-top: 30px;
+}
+.counter {
+    font-size: 50px;
+    font-weight: bold;
+    color: #282c34;
+}
+.red {
+    color: darkred;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.disabled {
+    background-color: darkred;
+}
+.input-display {
+    margin: 10px;
+}
+.input {
+    text-align: center;
+    font-weight: bold;
+}
+.redInput {
+    border: 2px solid darkred;
+    border-radius: 3px;
+    outline: none;
+    background-color: indianred;
 }

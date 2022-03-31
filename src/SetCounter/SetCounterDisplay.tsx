@@ -6,13 +6,14 @@ type SetCounterDisplayType = {
     setStartValue: (value: number) => void
     maxValue: number
     startValue: number
+    error: boolean
 }
 
 const SetCounterDisplay = (props: SetCounterDisplayType) => {
     return (
-        <div className={'set-input-display'}>
-            <SetInput title={'max value: '} callBack={props.setMaxValue} value={props.maxValue}/>
-            <SetInput title={'start value: '} callBack={props.setStartValue} value={props.startValue}/>
+        <div className={'display'}>
+            <SetInput title={'max value: '} error={props.error} callBack={props.setMaxValue} value={props.maxValue}/>
+            <SetInput title={'start value: '} error={props.error} callBack={props.setStartValue} value={props.startValue}/>
         </div>
     );
 };

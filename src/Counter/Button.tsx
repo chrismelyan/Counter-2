@@ -3,7 +3,7 @@ import React from 'react';
 type ButtonType = {
     title: string
     callBack: () => void
-    disabled: boolean
+    disabled?: boolean
 }
 const Button = ({title, callBack, disabled}: ButtonType) => {
     const disabledButton = `button ${disabled ? 'disabled' : ''}`
