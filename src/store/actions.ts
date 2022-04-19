@@ -7,10 +7,9 @@ export const changeSettings = (max: number, start: number, editMode: boolean) =>
 }
 
 export type IncrementValueType = ReturnType<typeof incrementValue>
-export const incrementValue = (value: number) => {
+export const incrementValue = () => {
     return {
-        type: 'INCREMENT-VALUE',
-        payload: {value}
+        type: 'INCREMENT-VALUE'
     } as const
 }
 
@@ -42,5 +41,13 @@ export const changeEditMode = (editMode: boolean) => {
     return {
         type: 'CHANGE-EDIT-MODE',
         payload: {editMode}
+    } as const
+}
+
+export type ChangeErrorType = ReturnType<typeof changeError>
+export const changeError = (error: boolean) => {
+    return {
+        type: 'CHANGE-ERROR',
+        payload: {error}
     } as const
 }

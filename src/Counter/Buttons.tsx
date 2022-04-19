@@ -9,9 +9,10 @@ type ButtonsType = {
     startValue: number
     editMode: boolean
     setNewValue: () => void
+    error: boolean
 }
 
-const Buttons = ({increment, counter, reset, maxValue, startValue, editMode, setNewValue}: ButtonsType) => {
+const Buttons = ({increment, counter, reset, maxValue, error, startValue, editMode, setNewValue}: ButtonsType) => {
     return (
         <div className={'buttons'}>
             {
@@ -19,6 +20,7 @@ const Buttons = ({increment, counter, reset, maxValue, startValue, editMode, set
                     ? <Button
                         callBack={setNewValue}
                         title={'set'}
+                        disabled={error}
                     />
                     : <>
                         <Button

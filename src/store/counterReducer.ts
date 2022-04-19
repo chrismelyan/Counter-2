@@ -1,13 +1,14 @@
 import {
-    ChangeEditModeType,
+    ChangeEditModeType, ChangeErrorType,
     ChangeSettingsType,
     IncrementValueType,
     ResetValueType,
     SetMaxValueType,
     SetStartValueType
 } from "./actions";
+import {AppStateType} from "./store";
 
-type InitStateType = {
+export type InitStateType = {
     value: number
     max: number
     start: number
@@ -21,6 +22,7 @@ type ActionType = ChangeSettingsType
     | SetMaxValueType
     | SetStartValueType
     | ChangeEditModeType
+    | ChangeErrorType
 
 const initialState: InitStateType = {
     value: 0,
@@ -34,6 +36,7 @@ export const counterReducer = (state = initialState, action: ActionType): InitSt
     switch (action.type) {
         case 'CHANGE-EDIT-MODE':
         case 'SET-MAX-VALUE':
+        case 'CHANGE-ERROR':
         case 'SET-START-VALUE':
             return {
                 ...state,
@@ -48,7 +51,7 @@ export const counterReducer = (state = initialState, action: ActionType): InitSt
         case 'INCREMENT-VALUE':
             return {
                 ...state,
-                value: action.payload.value + 1
+                value: state.value + 1
             }
         case 'RESET-VALUE':
             return {...state, value: state.start}
@@ -57,3 +60,4 @@ export const counterReducer = (state = initialState, action: ActionType): InitSt
     }
 }
 
+export const selectAllCounter = (state: AppStateType) => state.counter

@@ -1,49 +1,81 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './App.css';
-import Counter from "./Counter/Counter";
+import SetCounterDisplay from "./SetCounter/SetCounterDisplay";
+import CounterDisplay from "./Counter/CounterDisplay";
+import Buttons from "./Counter/Buttons";
+import {useDispatch, useSelector} from "react-redux";
+import {InitStateType, selectAllCounter} from "./store/counterReducer";
+import {AppStateType} from "./store/store";
+import {
+    changeEditMode,
+    changeError,
+    changeSettings,
+    incrementValue,
+    resetValue,
+    setMaxValue,
+    setStartValue
+} from "./store/actions";
 
-export type CounterValuesObjType = {
-    startValue: number
-    maxValue: number
-}
 
 function App() {
-    let counterValuesObj = {startValue: 0, maxValue: 0};
+    const {max, start, value, error, editMode} = useSelector<AppStateType, InitStateType>(selectAllCounter)
+    const dispatch = useDispatch()
 
-    let [counterValues, setCounterValues] = useState<CounterValuesObjType>(counterValuesObj);
-    let [counter, setCounter] = useState(counterValues.startValue);
+    const increment = () => {
+       value < max && dispatch(incrementValue())
+    }
+    const reset = () => {
+        dispatch(resetValue())
+    }
 
-    let [error, setError] = useState<boolean>(false);
-    let [editMode, setEditMode] = useState<boolean>(false);
-
-    useEffect(() => {
-        let saved = localStorage.getItem('set value');
-        if (saved) {
-            setCounterValues(JSON.parse(saved))
+    const setNewValue = () => {
+        dispatch(changeEditMode(true))
+        if (editMode && !error) {
+            dispatch(changeSettings(max, start, false))
         }
-    }, [])
+    }
+    const startValueCallback = (newValue: number) => {
+        dispatch(setStartValue(newValue, true));
 
-    useEffect(() => {
-        localStorage.setItem('set value', JSON.stringify(counterValues));
-    }, [counterValues]);
+        if (newValue < 0) return dispatch(changeError(true));
+        if (newValue >= max) return dispatch(changeError(true));
+        if (max >= 0) dispatch(changeError(false));
+    }
+    const maxValueCallback = (newValue: number) => {
+        dispatch(setMaxValue(newValue, true))
 
-    const settingsChanged = (newValues: CounterValuesObjType) => {
-        setCounterValues(newValues);
-        setCounter(newValues.startValue);
-        setEditMode(false)
+        if (newValue < 0) return dispatch(changeError(true));
+        if (newValue <= start) return dispatch(changeError(true));
+        if (start >= 0) dispatch(changeError(false));
     }
 
     return (
-        <div className="App">
-            <Counter
-                error={error}
-                counterValues={counterValues}
-                counter={counter}
-                setCounter={setCounter}
+        <div className='counter-wrapper'>
+            {
+                editMode
+                    ? <SetCounterDisplay
+                        setMaxValue={maxValueCallback}
+                        setStartValue={startValueCallback}
+                        maxValue={max}
+                        startValue={start}
+                        error={error}
+                    />
+                    : <CounterDisplay
+                        maxValue={max}
+                        counter={value}
+                        error={error}
+                        editMode={editMode}
+                    />
+            }
+            <Buttons
+                increment={increment}
+                reset={reset}
+                counter={value}
+                maxValue={max}
+                startValue={start}
                 editMode={editMode}
-                settingsChanged={settingsChanged}
-                setEditMode={setEditMode}
-                setError={setError}
+                setNewValue={setNewValue}
+                error={error}
             />
         </div>
     );
