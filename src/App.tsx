@@ -22,7 +22,7 @@ function App() {
     const dispatch = useDispatch()
 
     const increment = () => {
-       value < max && dispatch(incrementValue())
+        value < max && dispatch(incrementValue())
     }
     const reset = () => {
         dispatch(resetValue())
@@ -50,33 +50,35 @@ function App() {
     }
 
     return (
-        <div className='counter-wrapper'>
-            {
-                editMode
-                    ? <SetCounterDisplay
-                        setMaxValue={maxValueCallback}
-                        setStartValue={startValueCallback}
-                        maxValue={max}
-                        startValue={start}
-                        error={error}
-                    />
-                    : <CounterDisplay
-                        maxValue={max}
-                        counter={value}
-                        error={error}
-                        editMode={editMode}
-                    />
-            }
-            <Buttons
-                increment={increment}
-                reset={reset}
-                counter={value}
-                maxValue={max}
-                startValue={start}
-                editMode={editMode}
-                setNewValue={setNewValue}
-                error={error}
-            />
+        <div className={'App'}>
+            <div className='counter-wrapper'>
+                {
+                    editMode
+                        ? <SetCounterDisplay
+                            setMaxValue={maxValueCallback}
+                            setStartValue={startValueCallback}
+                            maxValue={max}
+                            startValue={start}
+                            error={error}
+                        />
+                        : <CounterDisplay
+                            maxValue={max}
+                            counter={value}
+                            error={error}
+                            editMode={editMode}
+                        />
+                }
+                <Buttons
+                    increment={increment}
+                    reset={reset}
+                    counter={value}
+                    maxValue={max}
+                    startValue={start}
+                    editMode={editMode}
+                    setNewValue={setNewValue}
+                    error={error}
+                />
+            </div>
         </div>
     );
 }
