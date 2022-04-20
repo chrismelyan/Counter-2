@@ -1,6 +1,5 @@
 import {
     ChangeEditModeType, ChangeErrorType,
-    ChangeSettingsType,
     IncrementValueType,
     ResetValueType,
     SetMaxValueType,
@@ -16,8 +15,7 @@ export type InitStateType = {
     error: boolean
 }
 
-type ActionType = ChangeSettingsType
-    | IncrementValueType
+type ActionType = IncrementValueType
     | ResetValueType
     | SetMaxValueType
     | SetStartValueType
@@ -35,18 +33,12 @@ const initialState: InitStateType = {
 export const counterReducer = (state = initialState, action: ActionType): InitStateType => {
     switch (action.type) {
         case 'CHANGE-EDIT-MODE':
-        case 'SET-MAX-VALUE':
         case 'CHANGE-ERROR':
+        case 'SET-MAX-VALUE':
         case 'SET-START-VALUE':
             return {
                 ...state,
                 ...action.payload
-            }
-        case "CHANGE-SETTINGS":
-            return {
-                ...state,
-                ...action.payload,
-                value: action.payload.start
             }
         case 'INCREMENT-VALUE':
             return {

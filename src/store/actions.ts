@@ -1,11 +1,3 @@
-export type ChangeSettingsType = ReturnType<typeof changeSettings>
-export const changeSettings = (max: number, start: number, editMode: boolean) => {
-    return {
-        type: 'CHANGE-SETTINGS',
-        payload: {max, start, editMode}
-    } as const
-}
-
 export type IncrementValueType = ReturnType<typeof incrementValue>
 export const incrementValue = () => {
     return {

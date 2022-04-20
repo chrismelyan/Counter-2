@@ -9,7 +9,6 @@ import {AppStateType} from "./store/store";
 import {
     changeEditMode,
     changeError,
-    changeSettings,
     incrementValue,
     resetValue,
     setMaxValue,
@@ -31,7 +30,7 @@ function App() {
     const setNewValue = () => {
         dispatch(changeEditMode(true))
         if (editMode && !error) {
-            dispatch(changeSettings(max, start, false))
+            dispatch(changeEditMode(false))
         }
     }
     const startValueCallback = (newValue: number) => {
